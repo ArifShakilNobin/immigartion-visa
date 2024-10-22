@@ -1,0 +1,90 @@
+<section class="wrapper" [class.active]="isLoginActive">
+  <div class="form signup">
+    <header (click)="toggleForm(false)">Signup</header>
+    <form (ngSubmit)="onSignup()" [formGroup]="signupForm">
+      <!-- <input type="text" placeholder="User name" formControlName="username" required /> -->
+
+      <div class="form-outline">
+        <nz-form-item>
+          <nz-form-control nzHasFeedback [nzErrorTip]="name">
+            <input type="text" formControlName="username" placeholder=" Name of User" class="form-control form-control-lg" />
+            <!-- <div *ngIf="nameAlredyExist" class="text-danger">
+              <p>This user name is already registered. Please use different user name</p>
+            </div> -->
+            <ng-template #name let-control>
+              <ng-container *ngIf="control.hasError('pattern') || control.hasError('whitespace')">
+                Please input valid user name!!
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+
+      <div class="form-outline">
+        <nz-form-item>
+          <nz-form-control nzHasFeedback [nzErrorTip]="passwordErrorTpl">
+            <input type="password" formControlName="password" placeholder="Password" class="form-control form-control-lg" style="color: #000;" (ngModelChange)="validateConfirmPassword()"/>
+          </nz-form-control>
+          <ng-template #passwordErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">
+              Please input your password!
+            </ng-container>
+            <ng-container *ngIf="control.hasError('minlength')">
+              Password minimum 8 digit
+            </ng-container>
+            <ng-container *ngIf="control.hasError('pattern')">
+              Your password must contain at least one uppercase, one lowercase, one special character, and one number
+            </ng-container>
+          </ng-template>
+        </nz-form-item>
+      </div>
+
+      <div class="form-outline">
+        <nz-form-item>
+          <nz-form-control nzHasFeedback [nzErrorTip]="confirmPasswordErrorTpl">
+            <input type="password" formControlName="confirmPassword" placeholder="Confirm Password" class="form-control form-control-lg" style="color: #000;"/>
+          </nz-form-control>
+          <ng-template #confirmPasswordErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">
+              Please confirm your password!
+            </ng-container>
+            <ng-container *ngIf="control.hasError('confirm')">
+              Password is inconsistent!
+            </ng-container>
+          </ng-template>
+        </nz-form-item>
+      </div>
+
+
+      <div class="form-outline">
+        <nz-form-item>
+          <nz-form-control nzHasFeedback [nzErrorTip]="role">
+            <input type="text" formControlName="role" placeholder="User Role" class="form-control form-control-lg" />
+            <!-- <div *ngIf="nameAlredyExist" class="text-danger">
+              <p>This user name is already registered. Please use different user name</p>
+            </div> -->
+            <ng-template #role let-control>
+              <ng-container *ngIf="control.hasError('pattern') || control.hasError('whitespace')">
+                Please input valid user role!!
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <input type="submit" value="Signup" />
+    </form>
+  </div>
+
+  <div class="form login">
+    <header (click)="toggleForm(true)">Login</header>
+    <form (ngSubmit)="onLogin()" [formGroup]="loginForm">
+      <input type="text" placeholder="User name" formControlName="username" required />
+      <input type="password" placeholder="Password" formControlName="password" required />
+      <a href="#">Forgot password?</a>
+      <input type="submit" value="Login" />
+    </form>
+  </div>
+</section>
+
